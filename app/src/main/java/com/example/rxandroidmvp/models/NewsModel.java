@@ -15,6 +15,27 @@ public class NewsModel implements Serializable {
     @Expose
     private List<Row> rows = null;
 
+    public Row getByName(String name) {
+        waitABit();
+
+        Row result = null;
+        for (Row item : rows) {
+            if (item.getTitle().equals(name)) {
+                result = item;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private void waitABit() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getTitle() {
         return title;
     }
