@@ -27,9 +27,12 @@ public class NetworkModule {
         this.cacheFile = cacheFile;
     }
 
+    public NetworkModule() {
+    }
+
     @Provides
     @Singleton
-    Retrofit provideCall() {
+    public Retrofit provideCall() {
         Cache cache = null;
         try {
             cache = new Cache(cacheFile, 10 * 1024 * 1024);

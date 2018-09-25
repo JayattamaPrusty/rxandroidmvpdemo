@@ -40,7 +40,14 @@ public class HomePresenter {
 
                     for(NewsModel.Row row:cityListResponse.getRows()){
 
-                        localDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
+                        if(row.getTitle()!=null){
+
+                            if(!localDb.isRowExist(row.getTitle(),row.getDescription(),row.getImageHref())){
+                                localDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
+                            }
+
+                        }
+
                     }
                     view.removeWait();
                     view.getNewslistSuccess(cityListResponse);

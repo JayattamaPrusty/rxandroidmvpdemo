@@ -17,15 +17,15 @@ public class MyLocalDb extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "RetrofitMvpDemo.db";
     private static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME = "NEWS";
+    private static final String TABLE_NAME = "NEWS";
 
 
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_IMAGE = "imageurl";
-    public static final String COLUMN_MODIFIED_TIME = "modified_time";
-    public static final String COLUMN_CREATED_TIME = "created_time";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_IMAGE = "imageurl";
+    private static final String COLUMN_MODIFIED_TIME = "modified_time";
+    private static final String COLUMN_CREATED_TIME = "created_time";
 
 
 
@@ -93,7 +93,28 @@ public class MyLocalDb extends SQLiteOpenHelper {
             String imageurl=cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE));
             newslist.add(new NewsModel().new Row(title,dscription,imageurl));
         }
-
+        cursor.close();
+        sqLiteDatabase.close();
         return newslist;
+    }
+
+
+    public boolean isRowExist(String titlestr, String contentstr, String url){
+
+        boolean status=false;
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+
+        String selectFirstQuery = "SELECT * FROM "+TABLE_NAME+" WHERE "+COLUMN_TITLE+" = ? ;"/*+" AND "+COLUMN_DESCRIPTION+" = ?"+" AND "+COLUMN_IMAGE+" = ? ;"*/;
+
+        String[] selectionargs=new String[]{titlestr};
+        Cursor cursor = sqLiteDatabase.rawQuery(selectFirstQuery,selectionargs);
+        int count = cursor.getCount();
+
+        if(count >= 1) {
+            status=true;
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+        return status;
     }
 }

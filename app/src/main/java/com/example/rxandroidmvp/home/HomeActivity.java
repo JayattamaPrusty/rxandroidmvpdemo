@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.rxandroidmvp.BaseApp;
 import com.example.rxandroidmvp.R;
+import com.example.rxandroidmvp.RxAndroidMvpApplication;
 import com.example.rxandroidmvp.models.NewsModel;
 import com.example.rxandroidmvp.networking.Service;
 import com.example.rxandroidmvp.utils.RecyclerItemClickListener;
@@ -30,7 +31,9 @@ public class HomeActivity extends BaseApp implements HomeView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getDeps().inject(this);
+
+        RxAndroidMvpApplication app = (RxAndroidMvpApplication) getApplication();
+        app.getDeps().inject(this);
 
         renderView();
         init();
