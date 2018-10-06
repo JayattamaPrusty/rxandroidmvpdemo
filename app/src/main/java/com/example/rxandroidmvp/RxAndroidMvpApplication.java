@@ -29,9 +29,11 @@ public class RxAndroidMvpApplication extends Application {
         return deps;
     }
 
+
     public void setDeps(Deps deps) {
         this.deps = deps;
     }
+
 
 
     public static synchronized RxAndroidMvpApplication getInstance() {
