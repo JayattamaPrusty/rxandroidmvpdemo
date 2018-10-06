@@ -24,17 +24,13 @@ public class RxAndroidMvpApplication extends Application {
         mInstance=this;
     }
 
-
     public Deps getDeps() {
         return deps;
     }
 
-
     public void setDeps(Deps deps) {
         this.deps = deps;
     }
-
-
 
     public static synchronized RxAndroidMvpApplication getInstance() {
         return mInstance;
