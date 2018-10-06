@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">RXANDROIDMVP</string>
-
+    <string name="no_data_msg">No list data found .\nkindly connect internet and refresh data</string>
 </resources>

@@ -7,8 +7,7 @@
     card_view:cardElevation="3dp"
     card_view:cardUseCompatPadding="true">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -26,7 +25,6 @@
             card_view:fontFamily="@font/lato_bold" />
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,30 +35,39 @@
             <TextView
                 android:id="@+id/txt_news_brief"
                 android:layout_width="0dp"
-                android:layout_weight="6"
                 android:layout_height="wrap_content"
+                android:layout_weight="6"
                 android:padding="@dimen/padding_three" />
 
-         <!--   news image -->
+            <!--   news image -->
 
-            <ImageView
-                android:id="@+id/iv_newsitem"
+            <RelativeLayout
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"/>
+                android:layout_weight="3">
 
-           <!-- image right arrow-->
+                <ImageView
+                    android:id="@+id/iv_newsitem"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="3"
+                    android:scaleType="fitXY" />
+            </RelativeLayout>
+
+
+            <!-- image right arrow-->
 
             <ImageView
                 android:id="@+id/iv_listrightarrow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/rightarrow"/>
+                android:src="@drawable/rightarrow" />
 
         </LinearLayout>
-
 
 
     </RelativeLayout>

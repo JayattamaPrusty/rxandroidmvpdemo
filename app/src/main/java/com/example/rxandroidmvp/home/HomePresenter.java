@@ -7,6 +7,7 @@ import com.example.rxandroidmvp.databaseHelper.MyLocalDb;
 import com.example.rxandroidmvp.models.NewsModel;
 import com.example.rxandroidmvp.networking.NetworkError;
 import com.example.rxandroidmvp.networking.Service;
+import com.example.rxandroidmvp.utils.ConnectivityReceiver;
 import com.example.rxandroidmvp.utils.Utility;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class HomePresenter {
 
         final MyLocalDb localDb=new MyLocalDb(context);
 
-        if(Utility.isInternetAvailable(context)){
+        if(ConnectivityReceiver.isConnected()){
 
             view.showWait();
 
@@ -38,10 +39,19 @@ public class HomePresenter {
                 @Override
                 public void onSuccess(NewsModel cityListResponse) {
 
+                    NewsModel newsModel=new NewsModel();
+
+                    newsModel.setTitle(cityListResponse.getTitle());
+
+                    ArrayList<NewsModel.Row> rowArrayList=new ArrayList<>();
+
                     for(NewsModel.Row row:cityListResponse.getRows()){
+
+
 
                         if(row.getTitle()!=null){
 
+                            rowArrayList.add(row);
                             if(!localDb.isRowExist(row.getTitle(),row.getDescription(),row.getImageHref())){
                                 localDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
                             }
@@ -49,8 +59,11 @@ public class HomePresenter {
                         }
 
                     }
+
+                    newsModel.setRows(rowArrayList);
+
                     view.removeWait();
-                    view.getNewslistSuccess(cityListResponse);
+                    view.getNewslistSuccess(newsModel);
                 }
 
                 @Override

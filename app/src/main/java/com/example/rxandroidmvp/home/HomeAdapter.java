@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.rxandroidmvp.R;
 import com.example.rxandroidmvp.models.NewsModel;
 import com.example.rxandroidmvp.utils.RecyclerItemClickListener;
@@ -41,7 +43,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.txtNoticeTitle.setText(dataList.get(position).getTitle());
         holder.txtNoticeBrief.setText(dataList.get(position).getDescription());
-        Glide.with(mcontext).load(dataList.get(position).getImageHref()).into(holder.iv_newsitem);
+
+
+
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.nph);
+        requestOptions.error(R.drawable.nph);
+        requestOptions.override(200,200);
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+        requestOptions.fitCenter();
+
+
+
+
+
+        Glide.with(mcontext).setDefaultRequestOptions(requestOptions).load(dataList.get(position).getImageHref()).into(holder.iv_newsitem);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
