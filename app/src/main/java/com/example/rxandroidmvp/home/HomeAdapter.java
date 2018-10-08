@@ -49,11 +49,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.nph);
         requestOptions.error(R.drawable.nph);
-        requestOptions.override(200,200);
+
         requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
         requestOptions.fitCenter();
-
-
 
 
 

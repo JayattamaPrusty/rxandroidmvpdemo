@@ -18,7 +18,6 @@
             android:id="@+id/txt_news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
             android:padding="@dimen/padding_three"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/tv_largetext"
@@ -37,25 +36,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:padding="@dimen/padding_three" />
+                android:padding="@dimen/padding_three"
+                card_view:fontFamily="@font/lato" />
 
             <!--   news image -->
 
-            <RelativeLayout
-
+            <ImageView
+                android:id="@+id/iv_newsitem"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3">
-
-                <ImageView
-                    android:id="@+id/iv_newsitem"
-                    android:layout_width="120dp"
-                    android:layout_height="100dp"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="3"
-                    android:scaleType="fitXY" />
-            </RelativeLayout>
-
+                android:layout_height="100dp"
+                android:layout_weight="3"
+                android:adjustViewBounds="true" />
 
             <!-- image right arrow-->
 
