@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.rxandroidmvp.R;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
 
-    Context mcontext;
+    private Context mcontext;
     private ArrayList<NewsModel.Row> dataList;
     private RecyclerItemClickListener recyclerItemClickListener;
 
@@ -40,28 +41,27 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        holder.txtNoticeTitle.setText(dataList.get(position).getTitle());
-        holder.txtNoticeBrief.setText(dataList.get(position).getDescription());
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+        holder.txtNoticeTitle.setText(dataList.get(holder.getAdapterPosition()).getTitle());
+        holder.txtNoticeBrief.setText(dataList.get(holder.getAdapterPosition()).getDescription());
 
 
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.nph)
+                .error(R.drawable.nph)
+                .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontTransform()
+                .fitCenter();
 
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.nph);
-        requestOptions.error(R.drawable.nph);
 
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-        requestOptions.fitCenter();
-
-
-
-        Glide.with(mcontext).setDefaultRequestOptions(requestOptions).load(dataList.get(position).getImageHref()).into(holder.iv_newsitem);
+        Glide.with(mcontext).setDefaultRequestOptions(requestOptions).load(dataList.get(holder.getAdapterPosition()).getImageHref()).apply(requestOptions).into(holder.iv_newsitem);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerItemClickListener.onItemClick(dataList.get(position));
+                recyclerItemClickListener.onItemClick(dataList.get(holder.getAdapterPosition()));
             }
         });
     }
@@ -77,11 +77,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
         TextView txtNoticeTitle, txtNoticeBrief;
         ImageView iv_newsitem;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            txtNoticeTitle =  itemView.findViewById(R.id.txt_news_title);
-            txtNoticeBrief =  itemView.findViewById(R.id.txt_news_brief);
-            iv_newsitem=itemView.findViewById(R.id.iv_newsitem);
+            txtNoticeTitle = itemView.findViewById(R.id.txt_news_title);
+            txtNoticeBrief = itemView.findViewById(R.id.txt_news_brief);
+            iv_newsitem = itemView.findViewById(R.id.iv_newsitem);
         }
     }
 }

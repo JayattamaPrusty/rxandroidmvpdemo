@@ -58,10 +58,10 @@ public class HomeActivity extends BaseApp implements HomeView,ConnectivityReceiv
     public  void renderView(){
         setContentView(R.layout.activity_home);
         list = findViewById(R.id.list);
-        nodatalay=(RelativeLayout)findViewById(R.id.rl_nodata);
+        nodatalay=findViewById(R.id.rl_nodata);
         progressBar = findViewById(R.id.progress);
 
-        progressBar.getIndeterminateDrawable().setColorFilter(0x459EDB, android.graphics.PorterDuff.Mode.MULTIPLY);
+        //progressBar.getIndeterminateDrawable().setColorFilter(0x459EDB, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
     public void init(){
