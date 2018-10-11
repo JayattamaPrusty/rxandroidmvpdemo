@@ -17,6 +17,7 @@ import com.example.rxandroidmvp.models.NewsModel;
 import com.example.rxandroidmvp.networking.Service;
 import com.example.rxandroidmvp.utils.ConnectivityReceiver;
 import com.example.rxandroidmvp.utils.RecyclerItemClickListener;
+import com.example.rxandroidmvp.utils.SharedPreferenceSingleton;
 
 import java.util.ArrayList;
 
@@ -121,6 +122,15 @@ public class HomeActivity extends BaseApp implements HomeView,ConnectivityReceiv
 
     @Override
     public void getNewslistSuccess(NewsModel cityListResponse) {
+
+
+        SharedPreferenceSingleton.getInstance().init(this);
+        String titletext=SharedPreferenceSingleton.getInstance().getStringPreference("title");
+
+        if(titletext!=null){
+
+            getSupportActionBar().setTitle(titletext);
+        }
 
 
         if(ConnectivityReceiver.isConnected()){

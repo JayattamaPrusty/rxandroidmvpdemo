@@ -8,6 +8,7 @@ import com.example.rxandroidmvp.models.NewsModel;
 import com.example.rxandroidmvp.networking.NetworkError;
 import com.example.rxandroidmvp.networking.Service;
 import com.example.rxandroidmvp.utils.ConnectivityReceiver;
+import com.example.rxandroidmvp.utils.SharedPreferenceSingleton;
 import com.example.rxandroidmvp.utils.Utility;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class HomePresenter {
         this.subscriptions = new CompositeSubscription();
     }
 
-    public void getNewslist(Context context) {
+    public void getNewslist(final Context context) {
 
         final MyLocalDb localDb=new MyLocalDb(context);
 
@@ -61,6 +62,9 @@ public class HomePresenter {
                     }
 
                     newsModel.setRows(rowArrayList);
+
+                    SharedPreferenceSingleton.getInstance().init(context);
+                    SharedPreferenceSingleton.getInstance().writeStringPreference("title",newsModel.getTitle());
 
                     view.removeWait();
                     view.getNewslistSuccess(newsModel);
